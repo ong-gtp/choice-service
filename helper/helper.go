@@ -14,6 +14,7 @@ const RandNumServiceUrl = "https://codechallenge.boohma.com/random"
 
 // EncodeHttpResponse converts the struct returned by the endpoint to a json response
 func EncodeHttpResponse(ctx context.Context, w http.ResponseWriter, response interface{}) error {
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	return json.NewEncoder(w).Encode(response)
 }
 
