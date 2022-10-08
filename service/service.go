@@ -8,6 +8,7 @@ import (
 
 	"github.com/ong-gtp/choice-service/entities"
 	"github.com/ong-gtp/choice-service/helper"
+	"github.com/ong-gtp/choice-service/repository"
 )
 
 // Service defines the interface for choice-service
@@ -25,14 +26,10 @@ func NewService() *service {
 	return &service{}
 }
 
+var repo repository.Repository = repository.NewRepository()
+
 // Choices is the list of choices that can be sent to client
-var Choices = []entities.Choice{
-	{Id: 1, Name: "Rock"},
-	{Id: 2, Name: "Paper"},
-	{Id: 3, Name: "Scissors"},
-	{Id: 4, Name: "Spook"},
-	{Id: 5, Name: "Lizard"},
-}
+var Choices = repo.GetChoices()
 
 // GetChoices returns all the choices that can be sent to client
 func (s *service) GetHealth(ctx context.Context) (string, error) {
