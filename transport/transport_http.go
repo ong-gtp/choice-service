@@ -42,10 +42,8 @@ func NewHttpServer(svc service.Service, logger log.Logger) *mux.Router {
 	)
 
 	r := mux.NewRouter()
-	r.Methods("GET").Path("/").Handler(healthHandler)
-	r.Methods("GET").Path("/health").Handler(healthHandler)
-	r.Methods("GET").Path("/v1").Handler(healthHandler)
-	r.Methods("GET").Path("/v1/choice").Handler(choiceHandler)
-	r.Methods("GET").Path("/v1/choices").Handler(choicesHandler)
+	r.Methods("GET").Path("/choice").Handler(choiceHandler)
+	r.Methods("GET").Path("/choices").Handler(choicesHandler)
+	r.Methods("GET").Path("/choicesv/health").Handler(healthHandler)
 	return r
 }

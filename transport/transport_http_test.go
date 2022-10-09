@@ -26,13 +26,11 @@ func TestHTTP(t *testing.T) {
 	srv := httptest.NewServer(r)
 
 	srs := []serviceRequest{
-		{method: "GET", url: srv.URL + "/", body: "", want: http.StatusOK},
-		{method: "GET", url: srv.URL + "/health", body: "", want: http.StatusOK},
-		{method: "GET", url: srv.URL + "/v1", body: "", want: http.StatusOK},
-		{method: "GET", url: srv.URL + "/v1/choices", body: "", want: http.StatusOK},
-		{method: "POST", url: srv.URL + "/v1/choices", body: "", want: http.StatusMethodNotAllowed},
-		{method: "POST", url: srv.URL + "/v1/choice", body: "", want: http.StatusMethodNotAllowed},
-		{method: "GET", url: srv.URL + "/v1/choice", body: "", want: http.StatusOK},
+		{method: "GET", url: srv.URL + "/choicesv/health", body: "", want: http.StatusOK},
+		{method: "GET", url: srv.URL + "/choices", body: "", want: http.StatusOK},
+		{method: "POST", url: srv.URL + "/choices", body: "", want: http.StatusMethodNotAllowed},
+		{method: "POST", url: srv.URL + "/choice", body: "", want: http.StatusMethodNotAllowed},
+		{method: "GET", url: srv.URL + "/choice", body: "", want: http.StatusOK},
 	}
 
 	for _, testcase := range srs {
