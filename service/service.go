@@ -46,23 +46,28 @@ func (s *service) GetChoices(ctx context.Context) ([]entities.Choice, error) {
 func (s *service) GetRandomChoice(ctx context.Context) (entities.Choice, error) {
 	response, err := http.Get(helper.RandNumServiceUrl)
 	if err != nil {
+		helper.Log("error", "error :", err)
 		return entities.Choice{}, helper.ErrRandomNumberService
 	}
 
 	responseData, err := io.ReadAll(response.Body)
 	if err != nil {
+		helper.Log("error", "error :", err)
 		return entities.Choice{}, helper.ErrRandomNumberBody
 	}
 
 	var randData entities.RandomNumber
 	err = json.Unmarshal(responseData, &randData)
 	if err != nil {
+		helper.Log("error", "error :", err)
 		return entities.Choice{}, helper.ErrRandomNumberUnmarshal
 	}
 
 	if randData.RandomNumber < 1 || randData.RandomNumber > 100 {
 		return entities.Choice{}, helper.ErrRandomNumberValue
 	}
+
+	helper.Log("debug", "RandomNumber: ", randData.RandomNumber)
 
 	id := (randData.RandomNumber % helper.ChoicesSize) + 1
 	for _, val := range Choices {

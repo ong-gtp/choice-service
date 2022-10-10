@@ -4,6 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
+	"os"
+
+	"github.com/go-kit/log"
 )
 
 // ChoicesSize is the count of choices available
@@ -52,4 +55,10 @@ func codeFrom(err error) int {
 	default:
 		return http.StatusInternalServerError
 	}
+}
+
+func Log(l, k, v interface{}) {
+	w := log.NewSyncWriter(os.Stderr)
+	logger := log.NewLogfmtLogger(w)
+	logger.Log("level", l, k, v)
 }
